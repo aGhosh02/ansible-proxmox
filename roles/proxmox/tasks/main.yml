@@ -1,0 +1,42 @@
+---
+
+- block:
+  - name: Add non-prod repository
+    lineinfile:
+      path: /etc/apt/sources.list 
+      line: deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+  - name: Remove Enterprise repositories from pve-enterprise.list
+    ansible.builtin.file:
+      state: absent
+      path: /etc/apt/sources.list.d/pve-enterprise.list
+  - name: Remove Enterprise repositories from ceph.list
+    ansible.builtin.file:
+      state: absent
+      path: /etc/apt/sources.list.d/ceph.list
+  - name: Enable IOMMU in GRUB_CMDLINE_LINUX_DEFAULT
+    replace:
+      path: /etc/default/grub
+      regexp: '^(GRUB_CMDLINE_LINUX_DEFAULT="quiet")$'
+      replace: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"'
+  - name: Update-Grub
+    command: update-grub 
+  - name: Add Modules
+    lineinfile:
+      path: /etc/modules
+      line: "{{ item }}"
+      insertafter: EOF
+    loop:
+      - vfio
+      - vfio_iommu_type1
+      - vfio_pci
+      - vfio_virqfd
+  - name: Disable Laptop lid suspend
+    lineinfile:
+      path: /etc/systemd/logind.conf
+      line: HandleLidSwitch=ignore
+  - name: Update System
+    apt:
+      upgrade: yes
+      update_cache: yes
+  # - name: Reboot the server.
+  #   reboot:

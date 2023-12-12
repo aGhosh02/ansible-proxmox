@@ -1,0 +1,8 @@
+# - hosts: proxmox
+#   roles:
+#     - proxmox 
+
+- hosts: omv
+  roles:
+    - omv 
+    - docker

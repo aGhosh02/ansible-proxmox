@@ -1,0 +1,59 @@
+---
+- block:
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/debian bullseye stable
+        state: present
+        filename: docker
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+    
+    - name: Setup Portainer
+      community.docker.docker_container:
+        name: portainer
+        image: portainer/portainer-ce:latest
+        detach: true
+        restart_policy: always
+        ports: 
+          - 8000:8000
+          - 9443:9443
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - portainer_data:/data
+        state: started
+    
+    - name: Download docker compose
+      get_url: 
+        url: https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-Linux-x86_64 
+        dest: /usr/local/bin/docker-compose
+    
+    - name: Make docker-compose executeable
+      file: dest=/usr/local/bin/docker-compose mode=a+x
+    
+    - name: Create docker-compose symlink
+      file:
+        src: "/usr/local/bin/docker-compose"
+        dest: "/usr/bin/docker-compose"
+        state: link

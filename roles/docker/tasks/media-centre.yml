@@ -1,0 +1,15 @@
+---
+- block:
+    - name: Copy docker-compose
+      copy:
+        src: ../files/media-centre
+        dest: ~/stacks/
+    
+    - name: Unarchive a file that needs to be downloaded (added in 2.0)
+      ansible.builtin.unarchive:
+        src: https://example.com/example.zip
+        dest: ~/appdata/sonarr
+        remote_src: yes
+
+    - name: Media centre Setup
+      shell: cd ~/stacks/media-centre && docker-compose up -d

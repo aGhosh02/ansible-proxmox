@@ -1,0 +1,11 @@
+---
+- block:
+  - name: Update and Upgrade
+    apt:
+      upgrade: full
+      update_cache: yes
+  - name: OMV Update
+    shell: "omv-upgrade"
+  - name: Install OMV-Extras
+    shell: "wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash"
+      
