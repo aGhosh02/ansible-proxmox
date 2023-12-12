@@ -7,7 +7,7 @@
     
     - name: Unarchive a file that needs to be downloaded (added in 2.0)
       ansible.builtin.unarchive:
-        src: https://example.com/example.zip
+        src: https://github.com/aGhosh02/ansible-proxmox/raw/master/roles/docker/files/media-centre/sonarr.zip
         dest: ~/appdata/sonarr
         remote_src: yes
 
