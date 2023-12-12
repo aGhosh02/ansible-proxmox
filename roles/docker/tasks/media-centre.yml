@@ -5,11 +5,13 @@
         src: ../files/media-centre
         dest: ~/stacks/
     
-    - name: Unarchive a file that needs to be downloaded (added in 2.0)
-      ansible.builtin.unarchive:
-        src: https://github.com/aGhosh02/ansible-proxmox/raw/master/roles/docker/files/media-centre/sonarr.zip
-        dest: ~/appdata/sonarr
-        remote_src: yes
+    - name: Download *arr settings
+      get_url:
+        url: https://drive.google.com/file/d/1AvAAtcyhdjZ0hiufC1_vQHRVxmLqGUSl/view?usp=drive_link
+        dest: ~/appdata/
+    
+    - name: Unzip config
+      shell: cd ~/appdata/ && tar -xf configbackup.tar.xz
 
     - name: Media centre Setup
       shell: cd ~/stacks/media-centre && docker-compose up -d
