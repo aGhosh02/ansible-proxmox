@@ -1,0 +1,31 @@
+version: "2.1"
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA}/transmission:/config
+      - ${HDD}/downloads:/downloads
+      - ${HDD}/downloads/watch:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+  pyload:
+    image: lscr.io/linuxserver/pyload
+    container_name: pyload
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA}/pyload:/config
+      - ${HDD}/downloads:/downloads
+    ports:
+      - 7000:8000
+      - 7227:7227 #optional

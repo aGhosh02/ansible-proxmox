@@ -1,0 +1,14 @@
+---
+- block:
+    - name: Copy docker-compose
+      copy:
+        src: ../files/downloader
+        dest: ~/stacks/
+
+    - name: Get transmission settings
+      get_url: 
+        url: https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-Linux-x86_64 
+        dest: ~/appdata/transmission
+
+    - name: Downloader Setup
+      shell: cd ~/stacks/downloader && docker-compose up -d

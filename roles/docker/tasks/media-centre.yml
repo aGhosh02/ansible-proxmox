@@ -5,13 +5,46 @@
         src: ../files/media-centre
         dest: ~/stacks/
     
-    - name: Download *arr settings
-      get_url:
-        url: https://drive.google.com/file/d/1AvAAtcyhdjZ0hiufC1_vQHRVxmLqGUSl/view?usp=drive_link
-        dest: ~/appdata/
+    - name: Create config directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - ~/appdata/bazarr
+        - ~/appdata/jellyfin
+        - ~/appdata/prowlarr
+        - ~/appdata/radarr
+        - ~/appdata/sonarr
     
-    - name: Unzip config
-      shell: cd ~/appdata/ && tar -xf configbackup.tar.xz
+    - name: Download/unarchive Bazarr config
+      unarchive:
+        src: http://10.0.100.3:8181/api/public/dl/GBZoLwno
+        dest: ~/appdata/bazarr
+        remote_src: yes
+    
+    - name: Download/unarchive Jellyfin config
+      unarchive:
+        src: http://10.0.100.3:8181/api/public/dl/bUlWrXzf
+        dest: ~/appdata/jellyfin
+        remote_src: yes
+    
+    - name: Download/unarchive Prowlarr config
+      unarchive:
+        src: http://10.0.100.3:8181/api/public/dl/kVckGEYH
+        dest: ~/appdata/prowlarr
+        remote_src: yes
+    
+    - name: Download/unarchive Radarr config
+      unarchive:
+        src: http://10.0.100.3:8181/api/public/dl/YBBBZhui
+        dest: ~/appdata/radarr
+        remote_src: yes
+    
+    - name: Download/unarchive Sonarr config
+      unarchive:
+        src: http://10.0.100.3:8181/api/public/dl/wf-jfnWl
+        dest: ~/appdata/sonarr
+        remote_src: yes
 
     - name: Media centre Setup
       shell: cd ~/stacks/media-centre && docker-compose up -d
