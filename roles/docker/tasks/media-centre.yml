@@ -48,3 +48,5 @@
 
     - name: Media centre Setup
       shell: cd ~/stacks/media-centre && docker-compose up -d
+
+    #TODO: Add prowlarr auto fix script

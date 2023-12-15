@@ -1,0 +1,18 @@
+---
+- block:
+    - name: Copy docker-compose
+      copy:
+        src: ../files/photoprism
+        dest: ~/stacks/
+    
+    - name: Create config directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - ~/appdata/database
+
+    - name: Photoprism Setup
+      shell: cd ~/stacks/photoprism && docker-compose up -d
+
+    #TODO: Add photoprism start import
