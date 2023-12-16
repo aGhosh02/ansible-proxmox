@@ -1,0 +1,24 @@
+---
+- block:
+    - name: Copy docker-compose
+      copy:
+        src: ../files/ghostfolio
+        dest: ~/stacks/
+    
+    - name: Create config directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - ~/appdata/ghostfolio
+    
+    - name: Download/unarchive Ghostfolio config
+      unarchive:
+        src: "{{ fileserver }}/api/public/dl/{{ backup_ghostfolio}}"
+        dest: ~/appdata/ghostfolio
+        remote_src: yes
+      when: backup_ghostfolio is defined
+    
+
+    - name: Ghostfolio Setup
+      shell: cd ~/stacks/ghostfolio && docker-compose up -d

@@ -1,7 +1,9 @@
 ---
 - block:
-    - import_tasks: install.yml
-    - import_tasks: media-centre.yml
-    - import_tasks: downloader.yml
-    - import_tasks: photoprism.yml
+    # - import_tasks: install.yml
+    # - import_tasks: media-centre.yml
+    # - import_tasks: downloader.yml
+    # - import_tasks: photoprism.yml
+    # - import_tasks: ghostfolio.yml
+    - import_tasks: network.yml
     

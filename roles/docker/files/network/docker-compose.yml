@@ -1,0 +1,28 @@
+version: "3"
+services:
+  bind9:
+    image: ubuntu/bind9:latest
+    container_name: bind9-dns
+    environment:
+      - BIND9_USER=root
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA}/bind9/config:/etc/bind
+      - ${APPDATA}/bind9/cache:/var/cache/bind
+      - ${APPDATA}/bind9/records:/var/lib/bind
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+    restart: unless-stopped
+  proxy:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: proxy-manager
+    volumes:
+      - ${APPDATA}/nginx/data:/data
+    ports:
+      - '80:80'
+      - '81:81'
+      - '444:443'
+    restart: unless-stopped

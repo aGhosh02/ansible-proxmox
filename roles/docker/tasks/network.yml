@@ -1,0 +1,38 @@
+---
+- block:
+    - name: Disable inbuitl DNSStub
+      lineinfile:
+        path: /etc/systemd/resolved.conf
+        line: DNSStubListener=no
+
+    - name: Copy docker-compose
+      copy:
+        src: ../files/network
+        dest: ~/stacks/
+    
+    - name: Create config directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - ~/appdata/bind9
+        - ~/appdata/nginx
+
+    - name: Copy config
+      copy:
+        src: /mnt/hdd1tb/Backup/appdata/{{item}}/
+        dest: ~/appdata/{{item}}/
+        remote_src: yes
+      loop:
+        - nginx
+    
+    - name: Get bind9 config
+      get_url: 
+        url: https://raw.githubusercontent.com/aGhosh02/ansible-proxmox/master/roles/docker/files/bind9-config/{{ item }}
+        dest: ~/appdata/bind9/{{ item }}
+      loop:
+        - named.conf
+        - arghyaghosh-cloud.zone
+
+    - name: Networking Setup
+      shell: cd ~/stacks/network && docker-compose up -d

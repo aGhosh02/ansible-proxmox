@@ -14,5 +14,7 @@
 
     - name: Photoprism Setup
       shell: cd ~/stacks/photoprism && docker-compose up -d
-
-    #TODO: Add photoprism start import
+    
+    - name: Reindex Photos
+      shell: docker exec -d photoprism photoprism index -f
+      when: trigger_reindex == true

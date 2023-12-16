@@ -1,0 +1,17 @@
+$TTL 2d
+
+$ORIGIN arghyaghosh.cloud.
+
+@               IN      SOA     ns.arghyaghosh.cloud.  info.arghyaghosh.cloud. (
+                                2022122000
+                                12h
+                                15m
+                                3w
+                                2h
+                                )
+
+                IN      NS      ns.arghyaghosh.cloud
+
+NS              IN      A       10.0.200.2
+
+*               IN      A       10.0.200.2

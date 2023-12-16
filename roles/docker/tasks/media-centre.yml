@@ -18,33 +18,38 @@
     
     - name: Download/unarchive Bazarr config
       unarchive:
-        src: http://10.0.100.3:8181/api/public/dl/GBZoLwno
+        src: "{{ fileserver }}/api/public/dl/{{ backup_bazarr}}"
         dest: ~/appdata/bazarr
         remote_src: yes
+      when: backup_bazarr is defined
     
     - name: Download/unarchive Jellyfin config
       unarchive:
-        src: http://10.0.100.3:8181/api/public/dl/bUlWrXzf
+        src: "{{ fileserver }}/api/public/dl/{{ backup_jellyfin}}"
         dest: ~/appdata/jellyfin
         remote_src: yes
+      when: backup_jellyfin is defined
     
     - name: Download/unarchive Prowlarr config
       unarchive:
-        src: http://10.0.100.3:8181/api/public/dl/kVckGEYH
+        src: "{{ fileserver }}/api/public/dl/{{ backup_prowlarr}}"
         dest: ~/appdata/prowlarr
         remote_src: yes
+      when: backup_prowlarr is defined
     
     - name: Download/unarchive Radarr config
       unarchive:
-        src: http://10.0.100.3:8181/api/public/dl/YBBBZhui
-        dest: ~/appdata/radarr
+        src: "{{ fileserver }}/api/public/dl/{{ backup_raarr}}"
+        dest: ~/appdata/raarr
         remote_src: yes
+      when: backup_raarr is defined
     
     - name: Download/unarchive Sonarr config
       unarchive:
-        src: http://10.0.100.3:8181/api/public/dl/wf-jfnWl
+        src: "{{ fileserver }}/api/public/dl/{{ backup_sonarr}}"
         dest: ~/appdata/sonarr
         remote_src: yes
+      when: backup_sonarr is defined
 
     - name: Media centre Setup
       shell: cd ~/stacks/media-centre && docker-compose up -d
