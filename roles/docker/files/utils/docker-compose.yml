@@ -1,0 +1,29 @@
+version: "3"
+services:
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    container_name: homarr
+    volumes:
+      - ${APPDATA}/homarr/configs:/app/data/configs
+      - ${APPDATA}/homarr/icons:/app/data/icons
+      - ${APPDATA}/homarr/data:/data
+    ports:
+      - 7575:7575
+    restart: unless-stopped
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    volumes:
+      - ${HDD}/homarr/icons:/srv
+      - ${APPDATA}/filebrowser:/data
+    ports:
+      - 8181:80
+    restart: unless-stopped
+  watchtower:
+    restart: unless-stopped
+    image: containrrr/watchtower
+    container_name: watchtower  
+    environment:
+      WATCHTOWER_CLEANUP: "true"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"

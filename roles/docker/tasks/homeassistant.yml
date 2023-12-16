@@ -1,0 +1,28 @@
+---
+- block:
+    - name: Copy docker-compose
+      copy:
+        src: ../files/homeassistant
+        dest: ~/stacks/
+    
+    - name: Create config directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - ~/appdata/homeassistant
+    
+    - name: Copy homeassistant config
+      copy:
+        src: /mnt/hdd1tb/Backup/appdata/homeassistant-2/
+        dest: ~/appdata/homeassistant/config/
+        remote_src: yes
+    
+    - name: Copy mqtt config
+      copy:
+        src: /mnt/hdd1tb/Backup/appdata/mqtt/
+        dest: ~/appdata/homeassistant/mqtt/
+        remote_src: yes
+    
+    - name: Homeassistant Setup
+      shell: cd ~/stacks/homeassistant && docker-compose up -d

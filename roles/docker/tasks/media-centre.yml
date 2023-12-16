@@ -53,5 +53,14 @@
 
     - name: Media centre Setup
       shell: cd ~/stacks/media-centre && docker-compose up -d
-
-    #TODO: Add prowlarr auto fix script
+    
+    - name: Copy docker-compose
+      copy:
+        src: ../files/media-centre
+        dest: ~/stacks/
+    
+    - name: Add prowlarr fix cron
+      cron:
+        name: "Fix Prowlarr links"
+        special_time: daily
+        job: "python3 ~/stacks/media-centre/prowlarr.py"

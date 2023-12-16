@@ -5,9 +5,8 @@
 - hosts: omv
   roles:
     # - omv 
-    - docker
+    # - docker
+    - domain.setup
   vars:
     hdd_absolute_path: /srv/dev-disk-by-uuid-42a18729-028c-448d-9ab8-b6ccad188135
-    fileserver: http://filebrowser.arghyaghosh.cloud
-    # backup_ghostfolio: X5rOoyc4
-    trigger_reindex: false
+    trigger_reindex: true

@@ -18,3 +18,9 @@
     - name: Reindex Photos
       shell: docker exec -d photoprism photoprism index -f
       when: trigger_reindex == true
+    
+    - name: Add daily import task photoprism
+      cron:
+        name: "daily import task photoprism"
+        special_time: daily
+        job: "docker exec photoprism photoprism import"
