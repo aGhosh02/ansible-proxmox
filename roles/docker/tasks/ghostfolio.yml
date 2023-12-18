@@ -12,13 +12,13 @@
       loop:
         - ~/appdata/ghostfolio
     
-    - name: Download/unarchive Ghostfolio config
-      unarchive:
-        src: "{{ fileserver }}/api/public/dl/{{ backup_ghostfolio}}"
-        dest: ~/appdata/ghostfolio
+    - name: Copy homeassistant config
+      copy:
+        src: /mnt/hdd1tb/Backup/appdata/{{item}}
+        dest: ~/appdata/{{item}}
         remote_src: yes
-      when: backup_ghostfolio is defined
+      loop:
+        - ghostfolio
     
-
     - name: Ghostfolio Setup
       shell: cd ~/stacks/ghostfolio && docker-compose up -d

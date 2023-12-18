@@ -7,6 +7,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - USER=arghya
+      - PASS=iamdevil
     volumes:
       - ${APPDATA}/transmission:/config
       - ${HDD}/downloads:/downloads
@@ -15,6 +17,8 @@ services:
       - 9091:9091
       - 51413:51413
       - 51413:51413/udp
+    networks:
+      - media-centre_internal
     restart: unless-stopped
   pyload:
     image: lscr.io/linuxserver/pyload
@@ -29,3 +33,6 @@ services:
     ports:
       - 7000:8000
       - 7227:7227 #optional
+networks:
+      media-centre_internal:
+        external: true

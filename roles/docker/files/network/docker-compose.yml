@@ -29,6 +29,8 @@ services:
   cloudflare:
     image: 'cloudflare/cloudflared:latest'
     container_name: cloudflare
+    volumes:
+      - ${APPDATA}/cloudflared:/home/nonroot/.cloudflared/
     restart: unless-stopped
-    command: tunnel --no-autoupdate run --token eyJhIjoiZmE4ZjFmOTAxYjFjYTA3YjI5NDg3ZGM2YmVkMGEyNjkiLCJ0IjoiNjNkZTViYWMtMTVjOS00ODc4LWEwMWItNzNiYmVlODFmNjcxIiwicyI6IlpXTTBOV1EzWWpRdE9EZzJNUzAwWTJVNUxUaG1NbVV0TTJNNU1EY3hNR0l3WXpkaiJ9
+    command: tunnel run homeserver
   

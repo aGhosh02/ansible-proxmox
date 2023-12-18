@@ -18,7 +18,7 @@ services:
       - homeassistant_internal
       - homeassistant_external
     volumes:
-      - ${APPDATA}/homeassistant/mqtt:/config
+      - ${APPDATA}/homeassistant/mqtt:/mosquitto/config
     ports:
       - 1883:1883
     restart: unless-stopped

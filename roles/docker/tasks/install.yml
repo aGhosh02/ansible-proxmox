@@ -10,6 +10,7 @@
           - python3-pip
           - virtualenv
           - python3-setuptools
+          - unzip
         state: latest
         update_cache: true
 
@@ -57,8 +58,3 @@
         src: "/usr/local/bin/docker-compose"
         dest: "/usr/bin/docker-compose"
         state: link
-    
-    - name: Install Unzip
-      apt:
-        name: unzip
-        state: present

@@ -5,59 +5,20 @@
         src: ../files/media-centre
         dest: ~/stacks/
     
-    - name: Create config directories
-      file:
-        path: "{{ item }}"
-        state: directory
+    - name: Copy homeassistant config
+      copy:
+        src: /mnt/hdd1tb/Backup/appdata/{{item}}
+        dest: ~/appdata/{{item}}
+        remote_src: yes
       loop:
-        - ~/appdata/bazarr
-        - ~/appdata/jellyfin
-        - ~/appdata/prowlarr
-        - ~/appdata/radarr
-        - ~/appdata/sonarr
-    
-    - name: Download/unarchive Bazarr config
-      unarchive:
-        src: "{{ fileserver }}/api/public/dl/{{ backup_bazarr}}"
-        dest: ~/appdata/bazarr
-        remote_src: yes
-      when: backup_bazarr is defined
-    
-    - name: Download/unarchive Jellyfin config
-      unarchive:
-        src: "{{ fileserver }}/api/public/dl/{{ backup_jellyfin}}"
-        dest: ~/appdata/jellyfin
-        remote_src: yes
-      when: backup_jellyfin is defined
-    
-    - name: Download/unarchive Prowlarr config
-      unarchive:
-        src: "{{ fileserver }}/api/public/dl/{{ backup_prowlarr}}"
-        dest: ~/appdata/prowlarr
-        remote_src: yes
-      when: backup_prowlarr is defined
-    
-    - name: Download/unarchive Radarr config
-      unarchive:
-        src: "{{ fileserver }}/api/public/dl/{{ backup_raarr}}"
-        dest: ~/appdata/raarr
-        remote_src: yes
-      when: backup_raarr is defined
-    
-    - name: Download/unarchive Sonarr config
-      unarchive:
-        src: "{{ fileserver }}/api/public/dl/{{ backup_sonarr}}"
-        dest: ~/appdata/sonarr
-        remote_src: yes
-      when: backup_sonarr is defined
+        - bazarr
+        - jellyfin
+        - prowlarr
+        - radarr
+        - sonarr
 
     - name: Media centre Setup
       shell: cd ~/stacks/media-centre && docker-compose up -d
-    
-    - name: Copy docker-compose
-      copy:
-        src: ../files/media-centre
-        dest: ~/stacks/
     
     - name: Add prowlarr fix cron
       cron:

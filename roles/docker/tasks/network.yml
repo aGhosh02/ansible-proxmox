@@ -23,34 +23,10 @@
         - ~/appdata/bind9
         - ~/appdata/nginx
 
-    - name: Copy config
-      copy:
-        src: /mnt/hdd1tb/Backup/appdata/{{item}}/
-        dest: ~/appdata/{{item}}/
-        remote_src: yes
-      loop:
-        - nginx
-    
-    - name: Get nginx proxy configs
-      raw: find ~/appdata/nginx/data/nginx/proxy_host/ -type f -name "*.conf"
-      register: proxies
-
-    - name: Update new ip to nginx
-      replace: dest={{item}} regexp="10.0.100.3" replace="10.0.200.2"
-      with_items: "{{ proxies.stdout_lines }}"
-    
-    - name: Update new ip to nginx
-      replace: dest={{item}} regexp="10.0.100.1" replace="10.0.200.1"
-      with_items: "{{ proxies.stdout_lines }}"
-    
-    - name: Update new ip to nginx
-      replace: dest={{item}} regexp="10.0.100.2" replace="10.0.200.2"
-      with_items: "{{ proxies.stdout_lines }}"
-    
     - name: Get bind9 config
       get_url: 
         url: https://raw.githubusercontent.com/aGhosh02/ansible-proxmox/master/roles/docker/files/network/bind9-config/{{ item }}
-        dest: ~/appdata/bind9/{{ item }}
+        dest: ~/appdata/bind9/config/{{ item }}
       loop:
         - named.conf
         - arghyaghosh-cloud.zone

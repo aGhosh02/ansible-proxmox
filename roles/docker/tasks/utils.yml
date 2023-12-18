@@ -12,6 +12,7 @@
       loop:
         - ~/appdata/homarr
         - ~/appdata/filebrowser
+        - ~/appdata/vaultwarden
 
     - name: Utils Setup
       shell: cd ~/stacks/utils && docker-compose up -d

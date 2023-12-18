@@ -1,0 +1,62 @@
+[
+  {
+    "name": "torrent",
+    "internal": "10.0.200.2:9091"
+  },
+  {
+    "name": "download",
+    "internal": "10.0.200.2:7000"
+  },
+  {
+    "name": "portfolio",
+    "internal": "10.0.200.2:8435"
+  },
+  {
+    "name": "homeassistant",
+    "internal": "10.0.200.2:8123"
+  },
+  {
+    "name": "sonarr",
+    "internal": "10.0.200.2:8989"
+  },
+  {
+    "name": "radarr",
+    "internal": "10.0.200.2:7878"
+  },
+  {
+    "name": "prowlarr",
+    "internal": "10.0.200.2:8123"
+  },
+  {
+    "name": "bazarr",
+    "internal": "10.0.200.2:6767"
+  },
+  {
+    "name": "jellyfin",
+    "internal": "10.0.200.2:8096"
+  },
+  {
+    "name": "proxy",
+    "internal": "10.0.200.2:81"
+  },
+  {
+    "name": "jellyfin",
+    "internal": "10.0.200.2:8096"
+  },
+  {
+    "name": "photo",
+    "internal": "10.0.200.2:2342"
+  },
+  {
+    "name": "file",
+    "internal": "10.0.200.2:8181"
+  },
+  {
+    "name": "home",
+    "internal": "10.0.200.2:7575"
+  },
+  {
+    "name": "vault",
+    "internal": "10.0.200.2:8523"
+  }
+]
